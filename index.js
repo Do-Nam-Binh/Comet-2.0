@@ -17,9 +17,12 @@ client.on('ready', (client) => {
 client.on('messageCreate', (message) => {
     if (message.author.bot) {
         return;
-    } else {
-        console.log(`${message.author.username}: ${message.content}`)
+    } 
+    
+    if (message.content === "Comet") {
+        message.reply('Hey, ask me anything!')
     }
+    console.log(`${message.author.username}: ${message.content}`);
 })
 
 client.login(token);
