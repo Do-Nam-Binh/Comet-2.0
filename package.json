@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "comet-2.0": "file:",
     "discord.js": "^14.16.2"
   }
 }
