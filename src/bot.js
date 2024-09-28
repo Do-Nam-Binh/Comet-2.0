@@ -1,7 +1,8 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const { token } = require("./config.json");
+const { token, botId, serverId } = require("./config.json"); 
 const fs = require('fs');
 const path = require('path');
+const { REST, Routes } = require('discord.js');
 
 const client = new Client({
     intents: [
@@ -14,19 +15,33 @@ const client = new Client({
 
 client.commands = new Map(); 
 
-// Commands folder
 const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command); 
+    client.commands.set(command.data.name, command); 
 }
 
-// Events folder
+const rest = new REST({ version: '10' }).setToken(token);
+
+(async () => {
+    try {
+        console.log('Started refreshing application (/) commands.');
+
+        await rest.put(
+            Routes.applicationGuildCommands(botId, serverId),
+            { body: [...client.commands.values()].map(command => command.data.toJSON()) },
+        );
+
+        console.log('Successfully reloaded application (/) commands.');
+    } catch (error) {
+        console.error(error);
+    }
+})();
+
 const eventFiles = fs.readdirSync(path.join(__dirname, 'events')).filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
-    const eventName = file.split('.')[0];
-    client.on(eventName, (...args) => event.execute(...args, client));
+    client.on(event.name, (...args) => event.execute(...args, client));
 }
 
 client.login(token);
