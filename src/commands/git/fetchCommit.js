@@ -1,22 +1,26 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
 const axios = require('axios');
+const { ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('fetchcommit')
-        .setDescription('Fetch the latest commit from a GitHub repository')
-        .addStringOption(option => 
-            option.setName('owner')
-                .setDescription('Owner of the GitHub repository')
-                .setRequired(true))
-        .addStringOption(option => 
-            option.setName('repo')
-                .setDescription('Name of the GitHub repository')
-                .setRequired(true)),
-    
-    async execute(interaction) {
+    name: "fetchcommit",
+    description: 'Get latest commit',
+
+    options: [
+        {
+            name: 'owner',
+            description: 'The owner of the repo.',
+            required: true,
+            type: ApplicationCommandOptionType.String,
+        },
+        {
+            name: 'repo',
+            description: 'The name of the GitHub repository.',
+            required: true,
+            type: ApplicationCommandOptionType.String,
+        },
+    ],
+
+    callback: async (client, interaction) => {
         const owner = interaction.options.getString('owner');
         const repo = interaction.options.getString('repo');
         
@@ -45,4 +49,5 @@ module.exports = {
             await interaction.reply('Failed to fetch commits.');
         }
     },
+    
 };
