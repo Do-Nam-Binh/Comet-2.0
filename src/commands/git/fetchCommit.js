@@ -2,7 +2,7 @@ const axios = require('axios');
 const { ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = {
-    name: "fetchcommit",
+    name: "fetch-commit",
     description: 'Get latest commit',
 
     options: [
