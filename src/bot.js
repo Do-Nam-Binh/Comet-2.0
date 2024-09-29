@@ -32,7 +32,7 @@ const rest = new REST({ version: '10' }).setToken(token);
             { body: [...client.commands.values()].map(command => command.data.toJSON()) },
         );
 
-        console.log('Successfully reloaded application (/) commands.');
+        console.log('Successfully');
     } catch (error) {
         console.error(error);
     }
