@@ -29,7 +29,7 @@ function logStartup() {
 function logReady(client) {
   console.log(chalk.greenBright(`
 ───────────────────────────────────────
-      🟢 ${chalk.bold(client.user.tag)} is now online!
+      🟢  ${chalk.bold(client.user.tag)} is now online!
 ───────────────────────────────────────
   `));
 }
