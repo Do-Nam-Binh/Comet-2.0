@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
+    "chalk": "^4.1.2",
     "comet-2.0": "file:",
     "discord.js": "^14.16.2",
     "mongodb": "^6.9.0"
