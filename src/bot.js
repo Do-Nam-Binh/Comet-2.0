@@ -17,7 +17,7 @@ const client = new Client({
     logStartup();
 
     try {    
-        eventHandler(client);
+        await eventHandler(client);
         logSuccess("Successfully load all events and commands");
 
         mongoose.set('strictQuery',false);
