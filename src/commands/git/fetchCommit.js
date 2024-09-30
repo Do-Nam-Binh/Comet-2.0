@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { ApplicationCommandOptionType } = require('discord.js');
+const { logInfo, logError } = require('../../utils/logger');
 
 module.exports = {
     name: "fetch-commit",
@@ -43,9 +44,9 @@ module.exports = {
 
             // Send the message in response to the interaction
             await interaction.reply(discordMessage);
-            console.log('New commit message sent to Discord.');
+            logInfo('New commit message sent to Discord.');
         } catch (error) {
-            console.error('Error fetching commits from GitHub:', error);
+            logError(`Error fetching commits from GitHub: ${error}`);
             await interaction.reply('Failed to fetch commits.');
         }
     },
