@@ -1,3 +1,5 @@
+const { logReady } = require('../../utils/logger');
+
 module.exports = (client) => {
-    console.log(`✅ ${client.user.displayName} is online ✅`);
+    logReady(client);
 };
