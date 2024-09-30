@@ -1,3 +1,3 @@
 module.exports = (client) => {
-    console.log("Wat")
+    console.log(`✅ ${client.user.displayName} is online ✅`);
 };
