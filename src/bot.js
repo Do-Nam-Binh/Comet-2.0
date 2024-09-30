@@ -13,13 +13,19 @@ const client = new Client({
     ]
 });
 
-logStartup();
+(async () => {
+    logStartup();
 
-try {
-    eventHandler(client);
-    logSuccess("Successfully load all events and commands");
-} catch (error) {
-    logError(`Error: ${error}`);
-}
+    try {    
+        eventHandler(client);
+        logSuccess("Successfully load all events and commands");
+
+        mongoose.set('strictQuery',false);
+        await mongoose.connect(mongoUri);
+        logSuccess("Successfully connected to MongoDB");
+    } catch (error) {
+        logError(`Error: ${error}`);
+    }
+})();
 
 client.login(token);
