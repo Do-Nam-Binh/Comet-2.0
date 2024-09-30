@@ -14,7 +14,8 @@
     "chalk": "^4.1.2",
     "comet-2.0": "file:",
     "discord.js": "^14.16.2",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
