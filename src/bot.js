@@ -1,6 +1,8 @@
 const { Client, GatewayIntentBits } = require("discord.js");
-const { token } = require("./config.json"); 
+const { token, mongoUri } = require("./config.json"); 
 const eventHandler = require('./handlers/eventHandler');
+const mongoose = require('mongoose');
+const { logStartup, logSuccess, logError } = require('./utils/logger');
 
 const client = new Client({
     intents: [
@@ -11,6 +13,20 @@ const client = new Client({
     ]
 });
 
-eventHandler(client);
+(async () => {
+    logStartup();
+
+    try {    
+        mongoose.set('strictQuery',false);
+        await mongoose.connect(mongoUri);
+        logSuccess("Successfully connected to MongoDB");
+
+        eventHandler(client);
+        logSuccess("Successfully load all events and commands");
+        
+    } catch (error) {
+        logError(`Error: ${error}`);
+    }
+})();
 
 client.login(token);
