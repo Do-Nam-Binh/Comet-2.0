@@ -22,5 +22,4 @@ try {
     logError(`Error: ${error}`);
 }
 
-
 client.login(token);
