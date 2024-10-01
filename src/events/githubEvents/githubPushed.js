@@ -8,7 +8,7 @@ module.exports = async (client) => {
     // Middleware to parse incoming webhook requests
     app.use(express.json());
 
-    app.post('/github-webhook', (req, res) => {
+    app.post('/github-webhook', async (req, res) => {
         const event = req.headers['x-github-event'];
 
         try {
@@ -19,12 +19,21 @@ module.exports = async (client) => {
                 .setColor('#0099ff');
 
             // Send embed to the specified Discord channel using the existing logged-in client
-            client.channels.cache.get(serverId).send({ embeds: [embed] });
-            
-            res.status(200).send('Event processed');
+            const channel = client.channels.cache.get(serverId);
+
+            if (!channel) {
+                throw new Error('Channel not found');
+            }
+
+            await channel.send({ embeds: [embed] });
+
+            // Return success message
+            res.status(200).send('Event processed and message sent to Discord');
         } catch (error) {
             console.error(`Error processing event: ${error}`);
-            res.status(500).send('Internal server error');
+            
+            // Return failure message
+            res.status(500).send(`Failed to process event: ${error.message}`);
         }
     });
 
@@ -33,4 +42,3 @@ module.exports = async (client) => {
         console.log('Webhook server listening on port 3000');
     });
 };
-
