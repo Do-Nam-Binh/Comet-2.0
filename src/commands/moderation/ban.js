@@ -1,7 +1,7 @@
 const { ApplicationCommandOptionType,PermissionFlagsBits,} = require('discord.js');
 
 module.exports = {
-    deleted: true,
+    maintenance: true,
     name: 'ban',
     description: 'Bans a member!!!',
 
