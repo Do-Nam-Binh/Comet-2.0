@@ -15,7 +15,7 @@ module.exports = async (client, interaction) => {
 
         if (commandObject.devOnly) {
             if (!devs.includes(interaction.member.id)) {
-                interaction.reply({
+                await interaction.reply({
                     content: 'Only developers are allowed to run this command.',
                     ephemeral: true,
                 });
@@ -24,9 +24,9 @@ module.exports = async (client, interaction) => {
         }
 
         if (commandObject.testOnly) {
-            if (!(interaction.guild.id === serverId)) {
-                interaction.reply({
-                    content: 'This command cannot be ran here.',
+            if (!serverId.includes(interaction.guild.id)) {
+                await interaction.reply({
+                    content: 'This command cannot be run here.',
                     ephemeral: true,
                 });
                 return;
@@ -36,7 +36,7 @@ module.exports = async (client, interaction) => {
         if (commandObject.permissionsRequired?.length) {
             for (const permission of commandObject.permissionsRequired) {
                 if (!interaction.member.permissions.has(permission)) {
-                    interaction.reply({
+                    await interaction.reply({
                         content: 'Not enough permissions.',
                         ephemeral: true,
                     });
@@ -46,11 +46,10 @@ module.exports = async (client, interaction) => {
         }
 
         if (commandObject.botPermissions?.length) {
+            const bot = interaction.guild.members.me;
             for (const permission of commandObject.botPermissions) {
-                const bot = interaction.guild.members.me;
-
                 if (!bot.permissions.has(permission)) {
-                    interaction.reply({
+                    await interaction.reply({
                         content: "I don't have enough permissions.",
                         ephemeral: true,
                     });
@@ -61,6 +60,6 @@ module.exports = async (client, interaction) => {
 
         await commandObject.callback(client, interaction);
     } catch (error) {
-        console.log(`There was an error running this command: ${error}`);
+        console.error(`There was an error running this command: ${error}`);
     }
 };
