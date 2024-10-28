@@ -1,13 +1,19 @@
-module.exports = async (client, serverId) => {
-    let applicationCommands;
+const { serverId } = require('../config.json');
 
-    if (serverId) {
-        const guild = await client.guilds.fetch(serverId);
-        applicationCommands = guild.commands;
-    } else {
-        applicationCommands = await client.application.commands;
+module.exports = async (client) => {
+    const applicationCommands = {};
+
+    try {
+        for (const id of serverId) {
+            const guild = await client.guilds.fetch(id);
+
+            applicationCommands[id] = guild.commands;
+            await guild.commands.fetch(); 
+        }
+
+        return applicationCommands;
+    } catch (error) {
+        console.error(`Error fetching application commands: ${error}`);
+        return null;
     }
-
-    await applicationCommands.fetch();
-    return applicationCommands;
 };
