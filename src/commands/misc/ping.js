@@ -1,8 +1,8 @@
 module.exports = {
-    name: 'ping',
-    description: 'Pong!',
+  name: "ping",
+  description: "Pong!",
 
-    callback: (client, interaction) => {
-      interaction.reply(`Pong! ${client.ws.ping}ms`);
-    },
-  };
+  callback: (client, interaction) => {
+    interaction.reply(`Pong! ${client.ws.ping}ms`);
+  },
+};

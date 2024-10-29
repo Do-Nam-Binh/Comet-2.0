@@ -1,37 +1,47 @@
-const chalk = require('chalk');
+const chalk = require("chalk");
 
-function logSuccess(message, icon = '✅') {
-  console.log(chalk.greenBright(`
+function logSuccess(message, icon = "✅") {
+  console.log(
+    chalk.greenBright(`
 ${icon} ${chalk.bold(message)}
-  `));
+  `)
+  );
 }
 
-function logError(message, icon = '❌') {
-  console.log(chalk.redBright(`
+function logError(message, icon = "❌") {
+  console.log(
+    chalk.redBright(`
 ${icon} ${chalk.bold(message)}
-  `));
+  `)
+  );
 }
 
-function logInfo(message, icon = 'ℹ️') {
-  console.log(chalk.blueBright(`
+function logInfo(message, icon = "ℹ️") {
+  console.log(
+    chalk.blueBright(`
 ${icon} ${chalk.bold(message)}
-  `));
+  `)
+  );
 }
 
 function logStartup() {
-  console.log(chalk.blueBright(`
+  console.log(
+    chalk.blueBright(`
 ───────────────────────────────────────
-      🚀  ${chalk.bold('Comet V2')} is starting up...  
+      🚀  ${chalk.bold("Comet V2")} is starting up...  
 ───────────────────────────────────────
-  `));
+  `)
+  );
 }
 
 function logReady(client) {
-  console.log(chalk.greenBright(`
+  console.log(
+    chalk.greenBright(`
 ───────────────────────────────────────
     🟢 ${chalk.bold(client.user.tag)} is now online!
 ───────────────────────────────────────
-  `));
+  `)
+  );
 }
 
 module.exports = {

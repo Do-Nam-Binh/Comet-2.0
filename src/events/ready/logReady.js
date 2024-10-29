@@ -1,5 +1,5 @@
-const { logReady } = require('../../utils/logger');
+const { logReady } = require("../../utils/logger");
 
 module.exports = (client) => {
-    logReady(client);
+  logReady(client);
 };
